@@ -1,0 +1,24 @@
+{
+  "name": "react-around-api-full",
+  "version": "1.0.0",
+  "description": "The API of \"Around the U.S.\" with authorization and registration handled by the back-end server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mistifikatorcat/react-around-api-full.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mistifikatorcat/react-around-api-full/issues"
+  },
+  "homepage": "https://github.com/mistifikatorcat/react-around-api-full#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
