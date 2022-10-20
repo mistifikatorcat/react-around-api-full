@@ -1,0 +1,122 @@
+.form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 358px;
+}
+
+.form__fieldset {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  gap: 30px;
+  padding: 0;
+  /*padding: 0 36px;*/
+  padding-top: 54px;
+  border: none;
+  width: 100%;
+}
+
+.form__fieldset:last-child {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding-top: 48px;
+  padding-bottom: 36.51px;
+}
+
+.form__input {
+  margin: 0;
+  font-family: "Inter", "Arial", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 13px;
+}
+
+.form__input_type_error {
+  border: 1px solid #ff0000;
+}
+
+.form__input-error_active {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Arial", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #ff0000;
+}
+
+.form__button {
+  border: 0;
+  background-color: #000000;
+  color: #ffffff;
+  width: 358px;
+  height: 50px;
+  border-radius: 2px;
+  opacity: 100%;
+  transition: opacity 0.3s ease-in-out;
+  font-family: "Inter", "Arial", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: center;
+  cursor: pointer;
+  /*margin-bottom: 32px;*/
+  padding: 13.66px 125px 18.49px;
+}
+
+.form__button_inactive {
+  opacity: 0.2;
+  border: 1px solid #000000;
+  cursor: default;
+}
+
+.form__button:hover {
+  opacity: 0.8;
+}
+
+.form__button_inactive:hover {
+  opacity: 0.2;
+}
+
+@media screen and (max-width: 632px) {
+  .form {
+    max-width: 238px;
+    width: 100%;
+  }
+
+  .form__fieldset {
+    padding-top: 76px;
+  }
+
+  .form__fieldset:last-child {
+    padding-top: 46px;
+    padding-bottom: 25px;
+  }
+
+  .form__button {
+    padding: 14px 100px;
+    width: 238px;
+    height: 46px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .form__input {
+    padding-bottom: 9px;
+  }
+}

@@ -1,0 +1,116 @@
+.login {
+  font-family: "Inter";
+  width: 100%;
+  min-height: 100vh;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 60px;
+  margin-bottom: 80px;
+  padding: 0;
+  padding-top: 60px;
+}
+
+.login__title {
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 37px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 77px;
+  max-width: 358px;
+}
+
+.login__input {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 400;
+  color: #fff;
+  background-color: black;
+  box-sizing: border-box;
+}
+
+.login__input:focus {
+  outline: none;
+}
+
+.login__input::placeholder {
+  color: white;
+}
+
+.login__footer {
+  height: 100%;
+  max-height: 400px;
+  display: flex;
+  flex-grow: 1;
+  text-align: center;
+  flex-direction: column-reverse;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  padding-top: 216px;
+}
+
+.login__submit {
+  border: 0;
+  background-color: #fff;
+  color: #000;
+  width: 358px;
+  height: 50px;
+  border-radius: 2px;
+  opacity: 100%;
+  transition: opacity 0.3s ease-in-out;
+  font-family: "Inter", "Arial", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: center;
+  cursor: pointer;
+  /*margin-bottom: 32px;*/
+  padding: 13.66px 125px 18.49px;
+}
+
+.login__submit:hover {
+  opacity: 0.8;
+}
+
+.login__footer-text {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #fff;
+}
+
+.login__link {
+  color: #fff;
+  opacity: 100%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.login__link:hover {
+  opacity: 0.8;
+}

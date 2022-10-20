@@ -1,0 +1,82 @@
+.header {
+  position: relative;
+  margin: 0 auto;
+}
+
+.header__wrapper {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 45px;
+  padding-bottom: 62px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+
+.header__logo {
+  max-width: 173px;
+  /*padding-bottom: 41px;*/
+}
+
+.header__navbar {
+  display: flex;
+}
+
+.header__mail {
+  font-family: "Inter";
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  margin: 0;
+  margin-right: 24px;
+  padding: 0;
+}
+
+.header__link {
+  font-family: "Inter";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  color: #fff;
+  opacity: 100%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.header__link:hover {
+  opacity: 0.8;
+}
+
+.header__logout {
+  font-family: "Inter";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+  text-align: right;
+  opacity: 100%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.header__logout:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 632px) {
+  .header {
+    max-width: 320px;
+  }
+
+  .header__wrapper {
+    padding-top: 28px;
+    padding-bottom: 32px;
+    padding-left: 27px;
+  }
+
+  .header__logo {
+    max-width: 126px;
+  }
+}

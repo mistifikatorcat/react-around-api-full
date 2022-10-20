@@ -1,0 +1,37 @@
+.grid {
+  max-width: 880px;
+  margin-top: 50px;
+}
+
+.grid__cards {
+  list-style-type: none;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 17px;
+  padding: 0;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 960px) {
+  .grid {
+    margin: 0 auto;
+    max-width: 720px;
+  }
+
+  .grid__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 632px) {
+  .grid {
+    margin-top: 36px;
+    max-width: 288px;
+  }
+
+  .grid__cards {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
