@@ -53,4 +53,26 @@ password: {
 }
 }
 );
+
+
+// adding findUserByCredentials to userSchema.statics object
+userSchema.statics.findUserByCredentials = function (email, password) {
+  // we refer to the User model as `this`
+  return this.findOne({ email })
+    .select('+password')
+    .then((user) => {
+      // user not found -- reject
+      if (!user) {
+        return Promise.reject(new Error('Incorrect email or password'));
+      }
+      // user found -- check its password
+      return bcrypt.compare(password, user.password).then((matched) => {
+        if (!matched) {
+          return Promise.reject(new Error('Incorrect email or password'));
+        }
+        return user;
+      });
+    });
+};
+
 module.exports = mongoose.model('user', userSchema);

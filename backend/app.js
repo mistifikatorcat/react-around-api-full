@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
-const { createUser, login } = require('./controllers/users');
+
 const auth = require('./middleware/auth');
 const handleCentralError = require('./middleware/handleCentralError');
 const {requestLogger, errorLogger} = require('./middleware/logger');
@@ -21,10 +21,6 @@ const app = express();
 mongoose.connect(MONGODB_URI);
 
 
-app.use(helmet());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 // include these before other routes
 app.use(cors());
 app.options('*', cors()); //enable requests for all routes
@@ -36,16 +32,20 @@ const allowedOrigins = [
 
 app.use(cors({ origin: allowedOrigins }));
 
-app.use(requestLogger)
+app.use(requestLogger);
 
-app.post('/signin', login);
-app.post('/signup', createUser);
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(router);
 
-app.use(auth);
-
-app.use('/main', auth, userRouter);
-app.use('/main', auth, cardRouter);
+userRouter.use(auth);
+cardRouter.use(auth);
 app.use(handleCentralError);
+app.use(errorLogger);
+
+app.use(errors());
+
 
 /*app.use((req, res, next) => {
   req.user = {
@@ -66,9 +66,6 @@ app.use((req, res) => {
   res.status(404).send({ message: 'The requested resource was not found' });
 });
 
-app.use(errorLogger);
-
-app.use(errors());
 
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);

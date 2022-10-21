@@ -3,26 +3,27 @@ const { badId, notFound, serverError, badURL } = require('../consts/consts');
 
 const getAllCards = (req, res) => {
   Card.find({})
+    .populate('owner')
     .then((cards) => {
       res.status(200).send({ data: cards });
     })
     .catch(() => serverError);
 };
 
-const createCard = (req, res) => {
+const createCard = (req, res, next) => {
   const { name, link, likes } = req.body;
-  const owner = req.user._id;
+  const { _id } = req.user;
   Card.create({
-    name, link, likes, owner,
+    name, link, likes, owner: _id,
   })
     .then((card) => {
       res.status(201).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        badURL(res);
+        next(badURL(res));
       }
-      serverError(res);
+      next(serverError(res));
     });
 };
 
@@ -47,11 +48,11 @@ const deleteCard = (req, res) => {
 
 const updateLikes = (req, res, operator) => {
   const { cardId } = req.params;
-  const userId = req.user._id;
+  const { _id } = req.user;
 
   Card.findByIdAndUpdate(
     cardId,
-    { [operator]: { likes: userId } }, // add _id to the array if it's not there yet
+    { [operator]: { likes: _id } }, // add _id to the array if it's not there yet
     { new: true },
   )
     .orFail(() => {
