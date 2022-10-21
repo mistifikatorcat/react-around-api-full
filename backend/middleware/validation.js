@@ -11,7 +11,7 @@ const validateURL = (value, helpers) => {
 
 const validateAuth = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required.email(),
+    email: Joi.string().required().email(),
     password: Joi.string().required().min(8)
   })
 });
@@ -21,7 +21,7 @@ const validateUserBody = celebrate({
     name: Joi.string().required().min(2).max(30),
     about: Joi.string().required().min(2).max(100),
     avatar: Joi.string().required().custom(validateURL),
-    email: Joi.string().required.email(),
+    email: Joi.string().required().email(),
     password: Joi.string().required().min(8)
   })
 });
