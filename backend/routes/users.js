@@ -1,24 +1,15 @@
 const router = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
-const {validateUrl, validateAuth, validateUserId} = require('../middleware/validation');
+const {validateProfile, validateProfilePic, validateObjectId} = require('../middleware/validation');
 const {
-  getUser, getAllUsers, updateProfile, updateProfilePicture,
+  getUser, getCurrentUser, getAllUsers, updateProfile, updateProfilePicture,
 } = require('../controllers/users');
 
 
-const updAvatarValidtn = Joi.object.keys({
-  avatar: Joi.string().required().custom(validateUrl)
-});
-
-const updProfileInfoValidtn = Joi.object.keys({
-  name: Joi.string().required().min(2).max(30),
-  about: Joi.string().required().min(2).max(30)
-});
-
-router.get('/users', validateAuth, getAllUsers);
-router.get('/users/:userId', validateAuth, validateUserId, getUser);
+router.get('/users', getAllUsers);
+router.get('/users/me', getCurrentUser);
+router.get('/users/:userId', validateObjectId, getUser);
 //router.post('/users', createUser);
-router.patch('/users/me', validateAuth, updProfileInfoValidtn, updateProfile);
-router.patch('/users/me/avatar', validateAuth, updAvatarValidtn, updateProfilePicture);
+router.patch('/users/me', validateProfile, updateProfile);
+router.patch('/users/me/avatar', validateProfilePic, updateProfilePicture);
 
 module.exports = router;
