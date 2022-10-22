@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
-
+const router = require('./routes');
 const auth = require('./middleware/auth');
 const handleCentralError = require('./middleware/handleCentralError');
 const {requestLogger, errorLogger} = require('./middleware/logger');
