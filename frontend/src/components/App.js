@@ -250,7 +250,7 @@ function App() {
           setUserData({ email });
           localStorage.setItem('jwt', res.token);
           setToken(res.token);
-          history.push("/main");
+          history.push("/");
         } else {
           setIsSuccess("fail");
           setIsInfoToolTipOpen(true);
@@ -283,7 +283,7 @@ function App() {
       <Switch>
         <ProtectedRoute
           exact
-          path="/main"
+          path="/"
           isLoggedIn={isLoggedIn}
           isCheckingToken={isCheckingToken}
         >
@@ -328,7 +328,7 @@ function App() {
         </Route>
 
         <Route>
-          {isLoggedIn ? <Redirect to={"/main"} /> : <Redirect to={"/signin"} />}
+          {isLoggedIn ? <Redirect to={"/"} /> : <Redirect to={"/signin"} />}
         </Route>
       </Switch>
       <InfoToolTip
