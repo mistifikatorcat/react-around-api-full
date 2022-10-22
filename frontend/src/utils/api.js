@@ -102,10 +102,14 @@ export class Api {
 
 let node_env = 'production';
 
-let baseUrl = 
+/*let baseUrl = 
 node_env === 'production'
 ? 'https://api.danielevgrafov.students.nomoredomainssbs.ru/'
-: 'http://localhost:3000';
+: 'http://danielevgrafov.students.nomoredomainssbs.ru';
+*/
+let baseUrl = 'http://localhost:3000';
+ 
+
 
 const api = new Api({
  baseUrl

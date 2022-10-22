@@ -1,8 +1,13 @@
 let node_env = 'production';
 
-let BASE_URL = 
+/*let BASE_URL = 
 node_env === 'production'
 ? 'https://api.danielevgrafov.students.nomoredomainssbs.ru/'
+: 'http://localhost:3000';*/
+
+let BASE_URL =
+node_env === 'production'
+? 'http://localhost:3000'
 : 'http://localhost:3000';
 
 const fetcher = (url, headers) => {
