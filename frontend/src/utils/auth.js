@@ -7,8 +7,8 @@ node_env === 'production'
 
 let BASE_URL =
 node_env === 'production'
-? 'http://localhost:3000'
-: 'http://localhost:3000';
+? 'http://localhost:3001'
+: 'http://localhost:3001';
 
 const fetcher = (url, headers) => {
   return fetch(url, headers).then((res) =>

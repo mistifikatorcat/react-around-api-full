@@ -1,3 +1,4 @@
+let baseUrl = 'http://localhost:3001';
 export class Api {
   constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
@@ -107,7 +108,7 @@ node_env === 'production'
 ? 'https://api.danielevgrafov.students.nomoredomainssbs.ru/'
 : 'http://danielevgrafov.students.nomoredomainssbs.ru';
 */
-let baseUrl = 'http://localhost:3000';
+
  
 
 
