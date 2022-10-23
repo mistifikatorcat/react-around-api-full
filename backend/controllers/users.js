@@ -37,7 +37,7 @@ const getAllUsers = (req, res) => {
     .then((users) => {
       res.status(200).send({ data: users });
     })
-    .catch(() => req.status(500).send({ message: 'Internal server error' }));
+    .catch(next);
 };
 
 
@@ -88,7 +88,7 @@ const login = (req, res) => {
   return User.findUserByCredentials(email, password)
   .then((user) => {
     const token = jwt.sign({ _id: user._id}, JWT_SECRET, { expiresIn: '7d'})
-    res.send({data: user.toJSON(), token})
+    res.send({data: user, token})
   })
   .catch((err) => {
     console.log(err);

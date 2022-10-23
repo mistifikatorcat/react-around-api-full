@@ -1,13 +1,12 @@
 const Card = require('../models/card');
-const { badId, notFound, serverError, badURL } = require('../consts/consts');
+const { badURL } = require('../consts/consts');
 
-const getAllCards = (req, res) => {
+const getAllCards = (req, res, next) => {
   Card.find({})
-    .populate('owner')
     .then((cards) => {
       res.status(200).send({ data: cards });
     })
-    .catch(() => serverError);
+    .catch(next);
 };
 
 const createCard = (req, res, next) => {
@@ -21,10 +20,10 @@ const createCard = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(badURL(res));
+        (badURL(res));
       }
-      next(serverError(res));
-    });
+    })
+    .catch(next);
 };
 
 const deleteCard = (req, res) => {
@@ -35,15 +34,8 @@ const deleteCard = (req, res) => {
       error.status = 404;
       throw error;
     })
-    .then(() => res.status(200).send({ message: 'Card is deleted' }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        badId(res);
-      } if (err.status === 404) {
-        notFound(res);
-      }
-      serverError(res);
-    });
+    .then(() => res.send({ data: card }))
+    .catch(next);
 };
 
 const updateLikes = (req, res, operator) => {
@@ -61,19 +53,12 @@ const updateLikes = (req, res, operator) => {
       throw error;
     })
     .then(() => res.status(200).send({ message: 'Card is updated' }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        badId(res);
-      } if (err.status === 404) {
-        notFound(res);
-      }
-      serverError(res);
-    });
+    .catch(next);
 };
 
-const likeCard = (req, res) => updateLikes(req, res, '$addToSet');
+const likeCard = (req, res) => updateLikes(req, res, {$addToSet: {} });
 
-const dislikeCard = (req, res) => updateLikes(req, res, '$pull');
+const dislikeCard = (req, res) => updateLikes(req, res, {$pull: {} });
 
 module.exports = {
   createCard, deleteCard, getAllCards, likeCard, dislikeCard,

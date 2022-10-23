@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const userRouter = require('./routes/users');
-const cardRouter = require('./routes/cards');
 const router = require('./routes');
 const auth = require('./middleware/auth');
 const handleCentralError = require('./middleware/handleCentralError');
@@ -21,15 +19,7 @@ const app = express();
 mongoose.connect(MONGODB_URI);
 
 
-// include these before other routes
-app.use(cors());
-app.options('*', cors()); //enable requests for all routes
-
-const allowedOrigins = [
-  'https://api.danielevgrafov.students.nomoredomainssbs.ru',
-  'http://danielevgrafov.students.nomoredomainssbs.ru',
-];
-
+const allowedOrigins = '*';
 app.use(cors({ origin: allowedOrigins }));
 
 app.use(requestLogger);
@@ -39,12 +29,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
-userRouter.use(auth);
-cardRouter.use(auth);
+router.use(auth);
 app.use(handleCentralError);
-app.use(errorLogger);
-
 app.use(errors());
+app.use(errorLogger);
 
 
 /*app.use((req, res, next) => {
