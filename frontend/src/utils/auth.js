@@ -2,7 +2,7 @@ let node_env = 'production';
 
 let BASE_URL = 
 node_env === 'production'
-? 'https://api.danielevgrafov.students.nomoredomainssbs.ru/'
+? 'https://api.danielevgrafov.students.nomoredomainssbs.ru'
 : 'http://localhost:3001';
 
 /*

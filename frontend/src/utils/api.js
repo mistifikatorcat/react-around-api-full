@@ -108,7 +108,7 @@ node_env === 'production'
 : 'http://danielevgrafov.students.nomoredomainssbs.ru';
 */
 
-let baseUrl = 'https://api.danielevgrafov.students.nomoredomainssbs.ru/';
+let baseUrl = 'https://api.danielevgrafov.students.nomoredomainssbs.ru';
 
 
 const api = new Api({
