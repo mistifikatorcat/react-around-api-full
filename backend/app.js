@@ -50,9 +50,9 @@ app.get('/crash-test', () => {
 });
 
 
-app.use((req, res) => {
+/*app.use((req, res) => {
   res.status(404).send({ message: 'The requested resource was not found' });
-});
+});*/
 
 
 app.listen(PORT, () => {
