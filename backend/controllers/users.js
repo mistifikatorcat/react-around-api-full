@@ -53,14 +53,17 @@ const createUser = (req, res) => {
   .then((hash) =>
   User.create({ name, avatar, about, email, password: hash })
   )
+  .then(console.log('user created'))
   .then((user) => {
       res.status(201).send({ data: user });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         badURL(res);
+        console.log('something with validation')
       }
       serverError(res);
+      console.log('controller worked, but threw an error');
     });
 };
 
