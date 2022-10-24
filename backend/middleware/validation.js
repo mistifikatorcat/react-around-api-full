@@ -12,7 +12,7 @@ const validateURL = (value, helpers) => {
 const validateAuth = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8)
+    password: Joi.string().required()
   })
 });
 
@@ -22,7 +22,7 @@ const validateUserBody = celebrate({
     //about: Joi.string().required().min(2).max(30),
     //avatar: Joi.string().required().custom(validateURL),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8)
+    password: Joi.string().required()
   })
 });
 

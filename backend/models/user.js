@@ -42,7 +42,6 @@ password: {
   type: String,
   required: true,
   minLength: 2,
-  maxLength: 30,
   select: false,
   validate: {
     validator(v){
