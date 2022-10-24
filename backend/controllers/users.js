@@ -1,7 +1,7 @@
 require('dotenv').config();
 const User = require('../models/user');
 const Conflict = require('../errors/Conflict');
-const Unathorized = require('../errors/Unathorized');
+const Unauthorized = require('../errors/Unauthorized');
 const BadReq = require('../errors/BadReq');
 const NotFound = require('../errors/NotFound');
 const bcrypt = require('bcryptjs');
@@ -97,7 +97,7 @@ const login = (req, res) => {
     res.send({data: user, token})
   })
   .catch(() => {
-    next(new Unathorized('Incorrect login or password'));
+    next(new Unauthorized('Incorrect login or password'));
   })
 }
 
