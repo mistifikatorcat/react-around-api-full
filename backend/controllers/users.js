@@ -1,6 +1,9 @@
 require('dotenv').config();
 const User = require('../models/user');
-const { badId, badURL, notFound, serverError, alreadyExists, unauthorized } = require('../consts/consts');
+const Conflict = require('../errors/Conflict');
+const Unathorized = require('../errors/Unathorized');
+const BadReq = require('../errors/BadReq');
+const NotFound = require('../errors/NotFound');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
@@ -8,20 +11,18 @@ const { JWT_SECRET } = process.env;
 
 const findUserWithId = (req, res, action, next) =>
   action.orFail(() => {
-    throw new Error('No users found by this id');
+    throw new NotFound('No users found by this id');
   })
   .then((user) => {
     res.send(user);
   })
   .catch((err) => {
     if (err.name === 'CastError') {
-      next(badId(res));
+      next(new BadReq(err.message));
     } if (err.name === 'ValidationError') {
-      next(badURL(res));
-    } if (err.status === 404) {
-      next(notFound(res));
+      next(new BadReq(err.message));
     }
-    next(serverError(res));
+    next(err);
 });
 
 const getCurrentUser = (req, res, next) => {
@@ -46,7 +47,7 @@ const createUser = (req, res) => {
   User.findOne({ email })
   .then((user) => {
     if (user) {
-      alreadyExists(res);
+      throw new Conflict ('User already exists');
     }
     return bcrypt.hash(password, 10);
   })
@@ -59,11 +60,13 @@ const createUser = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        badURL(res);
+        next(new BadReq(err.message));
         console.log('something with validation')
       }
-      serverError(res);
+      else{
+      next(err);
       console.log('controller worked, but threw an error');
+    }
     });
 };
 
@@ -93,9 +96,8 @@ const login = (req, res) => {
     const token = jwt.sign({ _id: user._id}, JWT_SECRET, { expiresIn: '7d'})
     res.send({data: user, token})
   })
-  .catch((err) => {
-    console.log(err);
-    unauthorized(err);
+  .catch(() => {
+    next(new Unathorized('Incorrect login or password'));
   })
 }
 

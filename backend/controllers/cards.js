@@ -1,5 +1,7 @@
 const Card = require('../models/card');
-const { badURL } = require('../consts/consts');
+const NotFound = require('../errors/NotFound');
+const Forbidden = require('../errors/Forbidden');
+const BadReq = require('../errors/BadReq');
 
 const getAllCards = (req, res, next) => {
   Card.find({})
@@ -20,7 +22,7 @@ const createCard = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        (badURL(res));
+        next(new BadReq(err.message));
       }
     })
     .catch(next);
@@ -28,13 +30,21 @@ const createCard = (req, res, next) => {
 
 const deleteCard = (req, res) => {
   const { cardId } = req.params;
-  Card.findByIdAndRemove(cardId)
+  Card.findById(cardId)
     .orFail(() => {
-      const error = new Error('Card is not found');
-      error.status = 404;
-      throw error;
+      throw new NotFound('Card is not found');
     })
-    .then(() => res.send({ data: card }))
+    .then((card) => {
+      if (card.owner.toString() !== req.user._id) {
+        next (new Forbidden("You can't delete someone else's card"))
+      }
+      else{
+        Card.findByIdAndRemove(cardId)
+        .then(({data: card}) => {
+          res.status(200).send({data: card})
+        })
+      }
+    })
     .catch(next);
 };
 
@@ -48,9 +58,7 @@ const updateLikes = (req, res, operator) => {
     { new: true },
   )
     .orFail(() => {
-      const error = new Error('Card is not found');
-      error.status = 404;
-      throw error;
+      throw new NotFound('Card is not found');
     })
     .then(() => res.status(200).send({ message: 'Card is updated' }))
     .catch(next);

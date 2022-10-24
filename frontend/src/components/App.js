@@ -228,12 +228,14 @@ function App() {
         if (res.data._id) {
           setIsSuccess("success");
           history.push("/signin");
+          console.log('user added')
         } else {
           setIsSuccess("fail");
         }
       })
       .catch((err) => {
         console.log(err);
+        console.log('user not added')
         setIsSuccess("fail");
       })
       .finally(() => {
