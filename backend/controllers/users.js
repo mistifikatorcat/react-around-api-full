@@ -33,7 +33,7 @@ const getUser = (req, res, next) => {
   findUserWithId(req, res, User.findById(req.params._id), next);
 }
 
-const getAllUsers = (req, res) => {
+const getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
       res.status(200).send({ data: users });
@@ -89,7 +89,7 @@ const updateProfilePicture = (req, res, next) => {
 };
 
 
-const login = (req, res) => {
+const login = (req, res, next) => {
   const {email, password} = req.body;
   return User.findUserByCredentials(email, password)
   .then((user) => {
