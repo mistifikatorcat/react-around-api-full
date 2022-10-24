@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 router.use(auth);
-app.use(handleCentralError);
+//app.use(handleCentralError);
 app.use(errors());
 app.use(errorLogger);
 
