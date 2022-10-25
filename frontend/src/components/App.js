@@ -42,7 +42,7 @@ function App() {
   React.useEffect(() => {
     if (token) {
       api
-        .getUserInfo()
+        .getUserInfo(token)
         .then((user) => {
           setCurrentUser(user);
         })
@@ -57,7 +57,7 @@ function App() {
   React.useEffect(() => {
     if (token) {
       api
-        .getInitialCards()
+        .getInitialCards(token)
         .then((res) => {
           setCards(res);
         })
@@ -70,15 +70,14 @@ function App() {
   //checking token
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
+    if (token) {
       auth
-        .checkTokenValidity(jwt)
+        .checkTokenValidity(token)
         .then((res) => {
-          if (res.data._id) {
+          if (res._id) {
             setIsLoggedIn(true);
-            setUserData({ email: res.data.email });
-            history.push("main");
+            setUserData({ email: res.email });
+            history.push("/cards");
           } else {
             localStorage.removeItem("jwt");
           }
@@ -252,7 +251,7 @@ function App() {
           setUserData({ email });
           localStorage.setItem('jwt', res.token);
           setToken(res.token);
-          history.push("/");
+          history.push("/cards");
         } else {
           setIsSuccess("fail");
           setIsInfoToolTipOpen(true);
@@ -285,7 +284,7 @@ function App() {
       <Switch>
         <ProtectedRoute
           exact
-          path="/"
+          path="/cards"
           isLoggedIn={isLoggedIn}
           isCheckingToken={isCheckingToken}
         >
