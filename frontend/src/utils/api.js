@@ -1,6 +1,7 @@
 export class Api {
-  constructor({ baseUrl }) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   _respond(res) {
@@ -102,13 +103,13 @@ export class Api {
 
 let node_env = 'production';
 
-/*let baseUrl = 
+let baseUrl = 
 node_env === 'production'
 ? 'https://api.danielevgrafov.students.nomoredomainssbs.ru/'
 : 'http://danielevgrafov.students.nomoredomainssbs.ru';
-*/
 
-let baseUrl = 'https://api.danielevgrafov.students.nomoredomainssbs.ru';
+
+//let baseUrl = 'https://api.danielevgrafov.students.nomoredomainssbs.ru';
 
 
 const api = new Api({

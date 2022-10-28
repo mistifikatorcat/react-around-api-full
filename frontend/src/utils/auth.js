@@ -37,11 +37,11 @@ export const login = (email, password) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((data) => {
+  })/*.then((data) => {
     localStorage.setItem("jwt", data.token);
     localStorage.setItem("email", email);
     return data;
-  });
+  });*/
 };
 
 export const checkTokenValidity = (token) => {
