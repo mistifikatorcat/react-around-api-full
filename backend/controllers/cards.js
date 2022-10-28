@@ -7,6 +7,7 @@ const getAllCards = (req, res, next) => {
   Card.find({})
     .then((cards) => {
       res.status(200).send(cards);
+      console.log(cards);
     })
     .catch(next);
 };
@@ -19,6 +20,7 @@ const createCard = (req, res, next) => {
   })
     .then((card) => {
       res.status(201).send(card);
+      console.log(card);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -41,7 +43,8 @@ const deleteCard = (req, res) => {
       else{
         Card.findByIdAndRemove(cardId)
         .then(({card}) => {
-          res.status(200).send(card)
+          res.status(200).send(card);
+          console.log(card);
         })
       }
     })
