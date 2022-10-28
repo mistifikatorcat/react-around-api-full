@@ -32,7 +32,7 @@ function App() {
   const [userData, setUserData] = React.useState({ email: "email@mail.com" });
   const [isCheckingToken, setIsCheckingToken] = React.useState(true);
   const [isSuccess, setIsSuccess] = React.useState("");
-  const [token, setToken] = React.useState(localStorage.getItem('jwt'));
+  //const [token, setToken] = React.useState(localStorage.getItem('jwt'));
   const history = useHistory();
 
   //getting info from the server
@@ -40,6 +40,7 @@ function App() {
   //getting user info
 
   React.useEffect(() => {
+    const token = localStorage.getItem('jwt');
     if (token) {
       api
         .getUserInfo(token)
@@ -50,11 +51,12 @@ function App() {
           console.log(err);
         });
     }
-  }, [token]);
+  }, []);
 
   //getting card info
 
   React.useEffect(() => {
+    const token = localStorage.getItem('jwt');
     if (token) {
       api
         .getInitialCards(token)
@@ -65,11 +67,12 @@ function App() {
           console.log(err);
         });
     }
-  }, [token]);
+  }, []);
 
   //checking token
 
   React.useEffect(() => {
+    const token = localStorage.getItem('jwt');
     if (token) {
       auth
         .checkTokenValidity(token)
@@ -144,7 +147,7 @@ function App() {
   function handleCardLike(card) {
     // Check one more time if this card was already liked
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
-
+    const token = localStorage.getItem('jwt');
     // Send a request to the API and getting the updated card data
     api
       .changeLikeCardStatus(card._id, !isLiked, token)
@@ -179,6 +182,7 @@ function App() {
   //updating user info
 
   function handleUpdateUser({name, about}) {
+    const token = localStorage.getItem('jwt');
     api
       .setUserInfo({name, about}, token)
       .then((res) => {
@@ -193,6 +197,7 @@ function App() {
   //updating profile pic
 
   function handleUpdateAvatar(url) {
+    const token = localStorage.getItem('jwt');
     api
       .editProfilePic(url, token)
       .then((res) => {
@@ -207,6 +212,7 @@ function App() {
   //uploading a new card
 
   function handleAddPlaceSubmit(card) {
+    const token = localStorage.getItem('jwt');
     api
       .createCard(card, token)
       .then((newCard) => {
@@ -249,8 +255,9 @@ function App() {
         if (res.token) {
           setIsLoggedIn(true);
           setUserData({ email });
+          setCurrentUser(res.user);
           localStorage.setItem('jwt', res.token);
-          setToken(res.token);
+          //setToken(res.token);
           history.push("/");
         } else {
           setIsSuccess("fail");
