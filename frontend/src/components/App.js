@@ -45,6 +45,7 @@ function App() {
       api
         .getUserInfo(token)
         .then((user) => {
+          console.log('getting user info ', user);
           setCurrentUser(user);
         })
         .catch((err) => {
@@ -61,7 +62,7 @@ function App() {
       api
         .getInitialCards(token)
         .then((res) => {
-          console.log(res);
+          console.log('getting card info ', res);
           setCards(res);
         })
         .catch((err) => {
@@ -78,6 +79,7 @@ function App() {
       auth
         .checkTokenValidity(token)
         .then((res) => {
+          console.log('checking token ', res);
           if (res._id) {
             setIsLoggedIn(true);
             setUserData({ email: res.email });
