@@ -44,7 +44,7 @@ function Main(props) {
       {props.children}
       <section className="grid">
         <ul className="grid__cards">
-          {props.cardsArray.map((card) => (
+          {props.cardsArray && props.cardsArray.map((card) => (
             <Card
               key={card._id}
               card={card}

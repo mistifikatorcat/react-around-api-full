@@ -63,7 +63,7 @@ function App() {
         .getInitialCards(token)
         .then((res) => {
           console.log('getting card info ', res);
-          setCards(res);
+          setCards(res || []);
         })
         .catch((err) => {
           console.log(err);
