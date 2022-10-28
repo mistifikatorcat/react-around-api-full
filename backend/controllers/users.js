@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path: '../../.env'});
 const User = require('../models/user');
 const Conflict = require('../errors/Conflict');
 const Unauthorized = require('../errors/Unauthorized');

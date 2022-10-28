@@ -105,8 +105,8 @@ let node_env = 'production';
 
 let baseUrl = 
 node_env === 'production'
-? 'https://api.danielevgrafov.students.nomoredomainssbs.ru/'
-: 'http://danielevgrafov.students.nomoredomainssbs.ru';
+? 'https://api.danielevgrafov.students.nomoredomainssbs.ru'
+: 'https://danielevgrafov.students.nomoredomainssbs.ru';
 
 
 //let baseUrl = 'https://api.danielevgrafov.students.nomoredomainssbs.ru';

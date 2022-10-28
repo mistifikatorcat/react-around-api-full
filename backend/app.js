@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './.env'});
+require('dotenv').config({ path: '../.env'});
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -8,7 +8,7 @@ const router = require('./routes');
 const auth = require('./middleware/auth');
 const handleCentralError = require('./middleware/handleCentralError');
 const {requestLogger, errorLogger} = require('./middleware/logger');
-
+const {limiter} = require('./middleware/limiter');
 console.log(process.env.NODE_ENV);
 
 const { PORT = 3001 } = process.env;
@@ -33,6 +33,7 @@ router.use(auth);
 //app.use(handleCentralError);
 app.use(errors());
 app.use(errorLogger);
+app.use(limiter);
 
 
 /*app.use((req, res, next) => {

@@ -77,7 +77,7 @@ function App() {
           if (res._id) {
             setIsLoggedIn(true);
             setUserData({ email: res.email });
-            history.push("/cards");
+            history.push("/");
           } else {
             localStorage.removeItem("jwt");
           }
@@ -251,7 +251,7 @@ function App() {
           setUserData({ email });
           localStorage.setItem('jwt', res.token);
           setToken(res.token);
-          history.push("/cards");
+          history.push("/");
         } else {
           setIsSuccess("fail");
           setIsInfoToolTipOpen(true);
@@ -284,7 +284,7 @@ function App() {
       <Switch>
         <ProtectedRoute
           exact
-          path="/cards"
+          path="/"
           isLoggedIn={isLoggedIn}
           isCheckingToken={isCheckingToken}
         >
