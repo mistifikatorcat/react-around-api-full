@@ -38,7 +38,7 @@ const getAllUsers = (req, res, next) => {
     .then((users) => {
       res.status(200).send({  users });
     })
-    .catch(next);
+    .catch(err=>{console.log(err); next(err)});
 };
 
 
@@ -59,13 +59,14 @@ const createUser = (req, res, next) => {
       res.status(201).send({ user });
     })
     .catch((err) => {
+      console.log(err)
       if (err.name === 'ValidationError') {
-        next(new BadReq(err.message));
         console.log('something with validation')
+        next(new BadReq(err.message));
       }
       else{
-      next(err);
-      console.log('controller worked, but threw an error');
+        console.log('controller worked, but threw an error');
+        next(err);
     }
     });
 };

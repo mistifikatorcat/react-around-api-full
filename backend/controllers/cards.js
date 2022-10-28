@@ -9,7 +9,7 @@ const getAllCards = (req, res, next) => {
       console.log(cards);
       res.status(200).send(cards);
     })
-    .catch(next);
+    .catch(err=>{console.log(err); next(err)});
 };
 
 const createCard = (req, res, next) => {
@@ -27,7 +27,7 @@ const createCard = (req, res, next) => {
         next(new BadReq(err.message));
       }
     })
-    .catch(next);
+    .catch(err=>{console.log(err); next(err)});
 };
 
 const deleteCard = (req, res) => {
@@ -48,10 +48,10 @@ const deleteCard = (req, res) => {
         })
       }
     })
-    .catch(next);
+    .catch(err=>{console.log(err); next(err)});
 };
 
-const updateLikes = (req, res, operator) => {
+const updateLikes = (req, res, operator, next) => {
   const { cardId } = req.params;
   const { _id } = req.user;
 
@@ -64,12 +64,12 @@ const updateLikes = (req, res, operator) => {
       throw new NotFound('Card is not found');
     })
     .then(() => res.status(200).send({ message: 'Card is updated' }))
-    .catch(next);
+    .catch(err=>{console.log(err); next(err)});
 };
 
-const likeCard = (req, res) => updateLikes(req, res, {$addToSet: {} });
+const likeCard = (req, res, next) => updateLikes(req, res, {$addToSet: {} }, next);
 
-const dislikeCard = (req, res) => updateLikes(req, res, {$pull: {} });
+const dislikeCard = (req, res, next) => updateLikes(req, res, {$pull: {} }, next);
 
 module.exports = {
   createCard, deleteCard, getAllCards, likeCard, dislikeCard,
