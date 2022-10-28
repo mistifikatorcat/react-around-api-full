@@ -36,7 +36,7 @@ const getUser = (req, res, next) => {
 const getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
-      res.status(200).send({  users });
+      res.status(200).send(users);
     })
     .catch(err=>{console.log(err); next(err)});
 };
@@ -56,7 +56,7 @@ const createUser = (req, res, next) => {
   )
   .then(console.log('user created'))
   .then((user) => {
-      res.status(201).send({ user });
+      res.status(201).send(user);
     })
     .catch((err) => {
       console.log(err)

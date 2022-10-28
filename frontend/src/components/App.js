@@ -230,7 +230,7 @@ function App() {
     auth
       .register(email, password)
       .then((res) => {
-        if (res.data._id) {
+        if (res._id) {
           setIsSuccess("success");
           history.push("/signin");
           console.log('user added')

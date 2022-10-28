@@ -6,8 +6,9 @@ const {JWT_SECRET} = process.env;
 
 const auth = (req, res, next) => {
   const { authorization } = req.headers;
-
+  console.log('JWT_SECRET: ', JWT_SECRET);
   if (!authorization || !authorization.startsWith ('Bearer ')){
+    console.log('is here?')
       return next(new Unauthorized('Authorization required'));
   }
 
@@ -16,6 +17,7 @@ const auth = (req, res, next) => {
   try {
     payload = jwt.verify(token, JWT_SECRET);
   } catch(err){
+    console.log(err);
     return next(new Unauthorized('Authorization required'));
 
   }
