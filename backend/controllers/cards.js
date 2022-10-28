@@ -6,7 +6,7 @@ const BadReq = require('../errors/BadReq');
 const getAllCards = (req, res, next) => {
   Card.find({})
     .then((cards) => {
-      res.status(200).send({ data: cards });
+      res.status(200).send({ cards });
     })
     .catch(next);
 };
@@ -18,7 +18,7 @@ const createCard = (req, res, next) => {
     name, link, likes, owner: _id,
   })
     .then((card) => {
-      res.status(201).send({ data: card });
+      res.status(201).send({ card });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -40,8 +40,8 @@ const deleteCard = (req, res) => {
       }
       else{
         Card.findByIdAndRemove(cardId)
-        .then(({data: card}) => {
-          res.status(200).send({data: card})
+        .then(({card}) => {
+          res.status(200).send({ card})
         })
       }
     })
