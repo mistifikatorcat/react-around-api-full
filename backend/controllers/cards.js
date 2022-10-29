@@ -6,6 +6,7 @@ const BadReq = require('../errors/BadReq');
 const getAllCards = (req, res, next) => {
   Card.find({})
     .then((cards) => {
+      console.log('getAllCards on cards controller')
       console.log(cards);
       res.status(200).send(cards);
     })
@@ -20,6 +21,8 @@ const createCard = (req, res, next) => {
   })
     .then((card) => {
       console.log(card);
+      console.log('createCard on cards controller')
+
       res.status(201).send(card);
     })
     .catch((err) => {
@@ -43,6 +46,8 @@ const deleteCard = (req, res) => {
       else{
         Card.findByIdAndRemove(cardId)
         .then((card) => {
+        console.log('deleteCard on cards controller')
+
           console.log(card);
           res.status(200).send(card);
         })

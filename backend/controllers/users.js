@@ -26,16 +26,19 @@ const findUserWithId = (req, res, action, next) =>
 });
 
 const getCurrentUser = (req, res, next) => {
+  console.log('getCurrentUser on user controller');
   findUserWithId(req, res, User.findById(req.user._id), next);
 }
 
 const getUser = (req, res, next) => {
+  console.log('getUser on user controller');
   findUserWithId(req, res, User.findById(req.params._id), next);
 }
 
 const getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
+      console.log('getAllUsers on user controller');
       res.status(200).send(users);
     })
     .catch(err=>{console.log(err); next(err)});
@@ -74,6 +77,7 @@ const createUser = (req, res, next) => {
 const updateProfile = (req, res, next) => {
   const {name, about} = req.body;
   const {_id} = req.user;
+  console.log('updateProfile on user controller');
   findUserWithId( req, res,
     User.findByIdAndUpdate(
       _id, {name, about}, {new: true, runValidators: true}
@@ -83,6 +87,7 @@ const updateProfile = (req, res, next) => {
 const updateProfilePicture = (req, res, next) => {
   const {avatar} = req.body;
   const {_id} = req.user;
+  console.log('updateProfilePicture on user controller')
   findUserWithId( req, res,
     User.findByIdAndUpdate(
       _id, {avatar}, {new: true, runValidators: true}
@@ -95,6 +100,7 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
   .then((user) => {
     const token = jwt.sign({ _id: user._id}, JWT_SECRET, { expiresIn: '7d'})
+    console.log('logged in')
     res.send({user, token})
   })
   .catch((err) => {
