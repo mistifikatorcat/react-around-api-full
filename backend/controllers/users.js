@@ -46,7 +46,7 @@ const getAllUsers = (req, res, next) => {
 
 
 const createUser = (req, res, next) => {
-  const {/* name, avatar, about,*/ email, password } = req.body;
+  const { name, avatar, about, email, password } = req.body;
   User.findOne({ email })
   .then((user) => {
     if (user) {
@@ -75,22 +75,21 @@ const createUser = (req, res, next) => {
 };
 
 const updateProfile = (req, res, next) => {
-  const {name, about} = req.body;
-  const {_id} = req.user;
+  const { body } = req;
+  const id = req.user._id;
   console.log('updateProfile on user controller');
   findUserWithId( req, res,
     User.findByIdAndUpdate(
-      _id, {name, about}, {new: true, runValidators: true}
+      id, body, {new: true, runValidators: true}
     ), next);
 };
 
 const updateProfilePicture = (req, res, next) => {
   const {avatar} = req.body;
-  const {_id} = req.user;
   console.log('updateProfilePicture on user controller')
   findUserWithId( req, res,
     User.findByIdAndUpdate(
-      _id, {avatar}, {new: true, runValidators: true}
+      req.user._id, {avatar}, {new: true, runValidators: true}
     ), next);
 };
 
@@ -101,6 +100,7 @@ const login = (req, res, next) => {
   .then((user) => {
     const token = jwt.sign({ _id: user._id}, JWT_SECRET, { expiresIn: '7d'})
     console.log('logged in')
+    console.log(token);
     res.send({user, token})
   })
   .catch((err) => {
