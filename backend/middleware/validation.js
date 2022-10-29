@@ -35,7 +35,7 @@ const validateProfile = celebrate({
 
 const validateProfilePic = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().required().custom(validateURL),
+    avatar: Joi.string().custom(validateURL),
   })
 });
 
