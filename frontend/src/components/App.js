@@ -46,7 +46,7 @@ function App() {
         .getUserInfo(token)
         .then(res => {
           console.log('getting user info ', res);
-          setCurrentUser(res.data);
+          setCurrentUser(res);
         })
         .catch((err) => {
           console.log(err);
@@ -63,7 +63,7 @@ function App() {
         .getInitialCards(token)
         .then((res) => {
           console.log('getting card info ', res);
-          setCards(res.data); //|| []);
+          setCards(res || []);
         })
         .catch((err) => {
           console.log(err);
@@ -224,8 +224,8 @@ function App() {
     //const token = localStorage.getItem('jwt');
     api
       .createCard({name, link})
-      .then(res => {
-        setCards([res.data, ...cards]);
+      .then(newCard => {
+        setCards([newCard, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
@@ -239,7 +239,7 @@ function App() {
     auth
       .register(email, password)
       .then((res) => {
-        if (res.data._id) { //(res._id)
+        if (res._id) { 
           setIsSuccess("success");
           history.push("/signin");
           console.log('user added')

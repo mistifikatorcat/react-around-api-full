@@ -46,7 +46,7 @@ const getAllUsers = (req, res, next) => {
 
 
 const createUser = (req, res, next) => {
-  const { name, avatar, about, email, password } = req.body;
+  const {/* name, avatar, about,*/ email, password } = req.body;
   User.findOne({ email })
   .then((user) => {
     if (user) {
@@ -55,7 +55,7 @@ const createUser = (req, res, next) => {
     return bcrypt.hash(password, 10);
   })
   .then((hash) =>
-  User.create({ name, avatar, about, email, password: hash })
+  User.create({/* name, avatar, about,*/ email, password: hash })
   )
   .then(console.log('user created'))
   .then((user) => {

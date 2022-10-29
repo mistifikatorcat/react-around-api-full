@@ -46,13 +46,14 @@ function Main(props) {
         <ul className="grid__cards">
           {props.cardsArray && props.cardsArray.map((card) => (
             <Card
-              key={card._id}
+              key={card._cardId}
               card={card}
               onCardClick={props.onCardClick}
               onLikeClick={props.onLikeClick}
               onDeleteClick={props.onDeleteClick}
             />
-          ))}
+          )
+          )}
         </ul>
       </section>
     </main>
