@@ -44,9 +44,9 @@ function App() {
     if (token) {
       api
         .getUserInfo(token)
-        .then((user) => {
-          console.log('getting user info ', user);
-          setCurrentUser(user);
+        .then(res => {
+          console.log('getting user info ', res);
+          setCurrentUser(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -63,7 +63,7 @@ function App() {
         .getInitialCards(token)
         .then((res) => {
           console.log('getting card info ', res);
-          setCards(res || []);
+          setCards(res.data); //|| []);
         })
         .catch((err) => {
           console.log(err);
@@ -80,9 +80,9 @@ function App() {
         .checkTokenValidity(token)
         .then((res) => {
           console.log('checking token ', res);
-          if (res._id) {
+          if (res.data._id) { //(res._id)
             setIsLoggedIn(true);
-            setUserData({ email: res.email });
+            setUserData({ email: res.data.email });
             history.push("/");
           } else {
             localStorage.removeItem("jwt");
@@ -153,11 +153,11 @@ function App() {
     const token = localStorage.getItem('jwt');
     // Send a request to the API and getting the updated card data
     api
-      .changeLikeCardStatus(card._id, !isLiked, token)
+      .changeLikeCardStatus(card._cardId, !isLiked, token)
       .then((newCard) => {
         setCards((state) =>
           state.map((currentCard) =>
-            currentCard._id === card._id ? newCard : currentCard
+            currentCard._cardId === card._cardId ? newCard : currentCard
           )
         );
       })
@@ -170,10 +170,10 @@ function App() {
 
   function handleCardDelete(card) {
     api
-      .deleteCard(card._id)
+      .deleteCard(card._cardId)
       .then(() => {
         const updatedCards = cards.filter((currentCard) => {
-          return currentCard._id !== card._id;
+          return currentCard._cardId !== card._cardId;
         });
         setCards(updatedCards);
       })
@@ -185,41 +185,47 @@ function App() {
   //updating user info
 
   function handleUpdateUser({name, about}) {
-    const token = localStorage.getItem('jwt');
+    //const token = localStorage.getItem('jwt');
     api
-      .setUserInfo({name, about}, token)
+      .setUserInfo({name, about}) //token)
       .then((res) => {
+        console.log('frontend app handleUpdateUser, worked')
         setCurrentUser(res);
         closeAllPopups();
       })
       .catch((err) => {
+        console.log('frontend app handleUpdateUser, didnt work')
         console.log(err);
       });
   }
 
   //updating profile pic
 
-  function handleUpdateAvatar(url) {
-    const token = localStorage.getItem('jwt');
+  function handleUpdateAvatar({avatar}) {
+    //const token = localStorage.getItem('jwt');
     api
-      .editProfilePic(url, token)
+      .editProfilePic(avatar)
       .then((res) => {
+        console.log('frontend app handleUpdateAvatar, worked')
+
         setCurrentUser(res);
         closeAllPopups();
       })
       .catch((err) => {
+        console.log('frontend app handleUpdateAvatar, didnt work')
+
         console.log(err);
       });
   }
 
   //uploading a new card
 
-  function handleAddPlaceSubmit(card) {
-    const token = localStorage.getItem('jwt');
+  function handleAddPlaceSubmit({name, link}) {
+    //const token = localStorage.getItem('jwt');
     api
-      .createCard(card, token)
-      .then((newCard) => {
-        setCards([newCard, ...cards]);
+      .createCard({name, link})
+      .then(res => {
+        setCards([res.data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
@@ -233,7 +239,7 @@ function App() {
     auth
       .register(email, password)
       .then((res) => {
-        if (res._id) {
+        if (res.data._id) { //(res._id)
           setIsSuccess("success");
           history.push("/signin");
           console.log('user added')
