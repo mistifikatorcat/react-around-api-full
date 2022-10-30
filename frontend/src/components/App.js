@@ -191,6 +191,7 @@ function App() {
       .then((res) => {
         console.log('frontend app handleUpdateUser, worked')
         setCurrentUser(res);
+        console.log(res);
         closeAllPopups();
       })
       .catch((err) => {

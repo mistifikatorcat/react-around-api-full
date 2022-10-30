@@ -15,6 +15,7 @@ const findUserWithId = (req, res, action, next) =>
   })
   .then((user) => {
     res.send(user);
+    console.log(user);
   })
   .catch((err) => {
     if (err.name === 'CastError') {
