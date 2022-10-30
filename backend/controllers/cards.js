@@ -14,10 +14,10 @@ const getAllCards = (req, res, next) => {
 };
 
 const createCard = (req, res, next) => {
-  const { name, link, likes } = req.body;
+  const { name, link} = req.body;
   const { _id } = req.user;
   Card.create({
-    name, link, likes, owner: _id,
+    name, link, owner: _id,
   })
     .then((card) => {
       console.log(card);
