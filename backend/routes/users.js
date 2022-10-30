@@ -7,10 +7,10 @@ const {
 
 
 router.get('/', getAllUsers);
-router.get('/me', auth, getCurrentUser);
+router.get('/me', getCurrentUser);
 router.get('/:userId', validateObjectId, getUser);
 //router.post('/users', createUser);
-router.patch('/me', auth, validateProfile, updateProfile);
-router.patch('/me/avatar', auth, validateProfilePic, updateProfilePicture);
+router.patch('/me',  validateProfile, updateProfile);
+router.patch('/me/avatar', validateProfilePic, updateProfilePicture);
 
 module.exports = router;
