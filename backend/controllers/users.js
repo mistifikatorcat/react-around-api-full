@@ -10,6 +10,7 @@ const { JWT_SECRET } = process.env;
 
 
 const findUserWithId = (req, res, action, next) =>
+{
   action.orFail(() => {
     throw new NotFound('No users found by this id');
   })
@@ -24,7 +25,8 @@ const findUserWithId = (req, res, action, next) =>
       next(new BadReq(err.message));
     }
     next(err);
-});
+})
+};
 
 const getCurrentUser = (req, res, next) => {
   console.log('getCurrentUser on user controller');
