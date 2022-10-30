@@ -15,7 +15,7 @@ router.use(auth);
 
 //router.use('/users', userRoute);
 router.use('/cards', cardRoute);
-//router.use('/', notARoute);
+router.use('/', notARoute);
 
 module.exports = router;
 
