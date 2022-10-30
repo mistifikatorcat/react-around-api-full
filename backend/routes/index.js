@@ -6,7 +6,7 @@ const auth = require('../middleware/auth');
 const { createUser, login} = require('../controllers/users');
 const userRoute = require('./users');
 const cardRoute = require('./cards');
-const notARoute = require('./notARoute');
+const { notARoute } = require('./notARoute');
 
 router.post('/signup', validateUserBody, createUser);
 router.post('/signin', validateAuth, login);
