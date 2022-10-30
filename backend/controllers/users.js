@@ -15,7 +15,7 @@ const findUserWithId = (req, res, action, next) =>
     throw new NotFound('No users found by this id');
   })
   .then((user) => {
-    res.send('success users.js 18');
+    res.send(user);
     console.log(user);
   })
   .catch((err) => {
