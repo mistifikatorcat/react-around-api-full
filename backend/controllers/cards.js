@@ -14,23 +14,30 @@ const getAllCards = (req, res, next) => {
 };
 
 const createCard = (req, res, next) => {
-  const { name, link} = req.body;
+  console.log('here');
+  const { name, link } = req.body;
   const { _id } = req.user;
   Card.create({
-    name, link, owner: _id,
+      name,
+      link,
+      owner: _id,
   })
-    .then((card) => {
-      console.log(card);
-      console.log('createCard on cards controller')
+      .then((card) => {
+          console.log(card);
+          console.log('createCard on cards controller');
 
-      res.status(201).send(card);
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadReq(err.message));
-      }
-    })
-    .catch(err=>{console.log(err); next(err)});
+          res.status(201).send(card);
+      })
+      .catch((err) => {
+          console.log(err);
+          if (err.name === 'ValidationError') {
+              next(new BadReq(err.message));
+          }
+      })
+      .catch((err) => {
+          console.log(err);
+          next(err);
+      });
 };
 
 const deleteCard = (req, res) => {
