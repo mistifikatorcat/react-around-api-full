@@ -1,5 +1,5 @@
 const validator = require('validator');
-const {celebrate, Joi} = require('celebrate');
+const { celebrate, Joi } = require('celebrate');
 const { ObjectId } = require('mongoose').Types;
 
 const validateURL = (value, helpers) => {
@@ -12,31 +12,31 @@ const validateURL = (value, helpers) => {
 const validateAuth = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required()
-  })
+    password: Joi.string().required(),
+  }),
 });
 
 const validateUserBody = celebrate({
   body: Joi.object().keys({
-    //name: Joi.string().required().min(2).max(30),
-    //about: Joi.string().required().min(2).max(30),
-    //avatar: Joi.string().required().custom(validateURL),
+    // name: Joi.string().required().min(2).max(30),
+    // about: Joi.string().required().min(2).max(30),
+    // avatar: Joi.string().required().custom(validateURL),
     email: Joi.string().required().email(),
-    password: Joi.string().required()
-  })
+    password: Joi.string().required(),
+  }),
 });
 
 const validateProfile = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     about: Joi.string().required().min(2).max(30),
-  })
+  }),
 });
 
 const validateProfilePic = celebrate({
   body: Joi.object().keys({
     avatar: Joi.string().custom(validateURL),
-  })
+  }),
 });
 
 const validateObjectId = celebrate({
@@ -56,15 +56,15 @@ const validateCard = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     link: Joi.string().required().custom(validateURL),
-  })
-})
+  }),
+});
 
 module.exports = {
-validateURL,
-validateAuth,
-validateUserBody,
-validateProfile,
-validateProfilePic,
-validateObjectId,
-validateCard
+  validateURL,
+  validateAuth,
+  validateUserBody,
+  validateProfile,
+  validateProfilePic,
+  validateObjectId,
+  validateCard,
 };

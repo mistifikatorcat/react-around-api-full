@@ -5,5 +5,5 @@ const notARoute = (res, req, next) => {
 };
 
 module.exports = {
-  notARoute
+  notARoute,
 };

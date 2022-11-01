@@ -7,12 +7,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'Jacques Cousteau',
     required: true,
-    minLength: [2, "The minimum length is 2"],
-    maxLength: [30, "The maximum length is 30"],
+    minLength: [2, 'The minimum length is 2'],
+    maxLength: [30, 'The maximum length is 30'],
   },
   about: {
     type: String,
-    default: `Explorer`,
+    default: 'Explorer',
     required: true,
     minLength: 2,
     maxLength: 30,
@@ -33,27 +33,25 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validate: {
-    validator(v) {
-      return validator.isEmail(v);
+      validator(v) {
+        return validator.isEmail(v);
+      },
+      message: 'Please enter the valid email',
     },
-    message: 'Please enter the valid email',
   },
-},
-password: {
-  type: String,
-  required: true,
-  minLength: 2,
-  select: false,
-  validate: {
-    validator(v){
-      return v;
+  password: {
+    type: String,
+    required: true,
+    minLength: 2,
+    select: false,
+    validate: {
+      validator(v) {
+        return v;
+      },
+      message: 'Please enter the valid password',
     },
-    message: 'Please enter the valid password',
-  }
-}
-}
-);
-
+  },
+});
 
 // adding findUserByCredentials to userSchema.statics object
 userSchema.statics.findUserByCredentials = function (email, password) {

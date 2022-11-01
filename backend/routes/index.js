@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
-const {validateAuth, validateUserBody} = require('../middleware/validation');
+const { validateAuth, validateUserBody } = require('../middleware/validation');
 const auth = require('../middleware/auth');
 
-const { createUser, login} = require('../controllers/users');
+const { createUser, login } = require('../controllers/users');
 const userRoute = require('./users');
 const cardRoute = require('./cards');
 const { notARoute } = require('./notARoute');
@@ -18,4 +18,3 @@ router.use('/cards', cardRoute);
 router.use('/', notARoute);
 
 module.exports = router;
-
