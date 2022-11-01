@@ -40,7 +40,7 @@ export default function AddPlacePopup(props) {
           className="form__input"
           type="text"
           name="name"
-          value={title}
+          value={name}
           id="name"
           placeholder="Title"
           onChange={onName}
