@@ -6,7 +6,7 @@ const BadReq = require('../errors/BadReq');
 const NotFound = require('../errors/NotFound');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET = '...' } = process.env;
 
 
 const findUserWithId = (req, res, action, next) =>
