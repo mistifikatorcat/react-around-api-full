@@ -66,20 +66,23 @@ const deleteCard = (req, res) => {
 const updateLikes = (req, res, operator, next) => {
   const { cardId } = req.params;
   const { _id } = req.user;
-
+  console.log(operator);
   Card.findByIdAndUpdate(
-    cardId,
-    { [operator]: { likes: _id } }, // add _id to the array if it's not there yet
-    { new: true },
+      cardId,
+      { [operator]: { likes: _id } }, // add _id to the array if it's not there yet
+      { new: true },
   )
-    .orFail(() => {
-      throw new NotFound('Card is not found');
-    })
-    .then(() => res.status(200).send({ message: 'Card is updated' }))
-    .catch(err=>{console.log(err); next(err)});
+      .orFail(() => {
+          throw new NotFound('Card is not found');
+      })
+      .then((card) => res.status(200).send(card))
+      .catch((err) => {
+          console.log(err);
+          next(err);
+      });
 };
 
-const likeCard = (req, res, next) => updateLikes(req, res, "$addToSet", next);
+const likeCard = (req, res, next) => updateLikes(req, res, '$addToSet', next);
 
 const dislikeCard = (req, res, next) => updateLikes(req, res, '$pull', next);
 
