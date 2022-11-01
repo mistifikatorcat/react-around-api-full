@@ -62,7 +62,7 @@ const createUser = (req, res, next) => {
   )
   .then(console.log('user created'))
   .then((user) => {
-      res.status(201).send(user);
+      res.status(201).send({name: user.name, avatar: user.avatar, about: user.about, email: user.email});
     })
     .catch((err) => {
       console.log(err)
@@ -104,7 +104,7 @@ const login = (req, res, next) => {
     const token = jwt.sign({ _id: user._id}, JWT_SECRET, { expiresIn: '7d'})
     console.log('logged in')
     console.log(token);
-    res.send({user, token})
+    res.send({name: user.name, avatar: user.avatar, about: user.about, email: user.email, token})
   })
   .catch((err) => {
     console.log(err);

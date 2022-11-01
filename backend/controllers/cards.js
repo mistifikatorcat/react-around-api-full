@@ -72,9 +72,9 @@ const updateLikes = (req, res, operator, next) => {
     .catch(err=>{console.log(err); next(err)});
 };
 
-const likeCard = (req, res, next) => updateLikes(req, res, {$addToSet: {} }, next);
+const likeCard = (req, res, next) => updateLikes(req, res, "$addToSet", next);
 
-const dislikeCard = (req, res, next) => updateLikes(req, res, {$pull: {} }, next);
+const dislikeCard = (req, res, next) => updateLikes(req, res, '$pull', next);
 
 module.exports = {
   createCard, deleteCard, getAllCards, likeCard, dislikeCard,

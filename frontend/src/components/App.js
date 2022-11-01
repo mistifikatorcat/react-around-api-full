@@ -80,17 +80,22 @@ function App() {
         .checkTokenValidity(token)
         .then((res) => {
           console.log('checking token ', res);
-          if (res.data._id) { //(res._id)
+          if (res._id) { //(res._id)
             setIsLoggedIn(true);
-            setUserData({ email: res.data.email });
+            setUserData({ email: res.email });
             history.push("/");
           } else {
             localStorage.removeItem("jwt");
+            history.push("/signin");
+            setIsLoggedIn(false);
           }
         })
         .catch((err) => {
           console.log(err);
           history.push("/signin");
+          setIsLoggedIn(false);
+          localStorage.removeItem("jwt");
+
         })
         .finally(() => {
           setIsCheckingToken(false);
@@ -149,31 +154,32 @@ function App() {
 
   function handleCardLike(card) {
     // Check one more time if this card was already liked
-    const isLiked = card.likes.some((user) => user._id === currentUser._id);
+    const isLiked = card.likes.some((user) => user === currentUser._id);
+    console.log(currentUser);
     const token = localStorage.getItem('jwt');
     // Send a request to the API and getting the updated card data
-    api
-      .changeLikeCardStatus(card._cardId, !isLiked, token)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((currentCard) =>
-            currentCard._cardId === card._cardId ? newCard : currentCard
-          )
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    api.changeLikeCardStatus(card._id, isLiked, token)
+        .then((newCard) => {
+            console.log(newCard);
+            setCards((state) =>
+                state.map((currentCard) =>
+                    currentCard._id === card._id ? newCard : currentCard,
+                ),
+            );
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
 
   //delete card handler
 
   function handleCardDelete(card) {
     api
-      .deleteCard(card._cardId)
+      .deleteCard(card._id)
       .then(() => {
         const updatedCards = cards.filter((currentCard) => {
-          return currentCard._cardId !== card._cardId;
+          return currentCard._id !== card._id;
         });
         setCards(updatedCards);
       })
@@ -190,7 +196,7 @@ function App() {
       .setUserInfo({name, about}) //token)
       .then((res) => {
         console.log('frontend app handleUpdateUser, worked')
-        setCurrentUser(res);
+        setCurrentUser({...res});
         console.log(res);
         closeAllPopups();
       })
@@ -225,7 +231,7 @@ function App() {
     //const token = localStorage.getItem('jwt');
     api
       .createCard({name, link})
-      .then(newCard => {
+      .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
@@ -345,9 +351,9 @@ function App() {
           <Login handleLogin={handleLogin} />
         </Route>
 
-        <Route>
+       {/* <Route>
           {isLoggedIn ? <Redirect to={"/"} /> : <Redirect to={"/signin"} />}
-        </Route>
+  </Route> */}
       </Switch>
       <InfoToolTip
         isOpen={isInfoToolTipOpen}

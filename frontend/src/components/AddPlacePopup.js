@@ -2,16 +2,16 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export default function AddPlacePopup(props) {
-  const [title, setTitle] = React.useState("");
+  const [name, setName] = React.useState("");
   const [link, setLink] = React.useState("");
 
   React.useEffect(() => {
-    setTitle("");
+    setName("");
     setLink("");
   }, [props.isOpen]);
 
-  const onTitle = (e) => {
-    setTitle(e.target.value);
+  const onName = (e) => {
+    setName(e.target.value);
   };
 
   const onLink = (e) => {
@@ -22,7 +22,7 @@ export default function AddPlacePopup(props) {
     e.preventDefault();
 
     props.onAddPlaceSubmit({
-      title: title,
+      name: name,
       link: link,
     });
   }
@@ -39,11 +39,11 @@ export default function AddPlacePopup(props) {
         <input
           className="form__input"
           type="text"
-          name="title"
+          name="name"
           value={title}
-          id="title"
+          id="name"
           placeholder="Title"
-          onChange={onTitle}
+          onChange={onName}
           required
           minLength="1"
           maxLength="30"

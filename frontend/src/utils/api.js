@@ -5,7 +5,7 @@ export class Api {
   }
 
   _respond(res) {
-      res.ok
+      return res.ok
         ? res.json()
         : Promise.reject(`Something went wrong: ${res.status}`)
     ;
@@ -69,7 +69,7 @@ export class Api {
 
   changeLikeCardStatus(cardId, liked) {
     if (!liked) {
-      return fetch(`${this._baseUrl}/cards/likes/${cardId}/likes`, {
+      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export class Api {
         },
       }).then(this._respond);;
     } else {
-      return fetch(`${this._baseUrl}/cards/likes/${cardId}/likes`, {
+      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
