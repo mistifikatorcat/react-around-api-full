@@ -7,7 +7,7 @@ const {
 
 router.get('/', getAllUsers);
 router.get('/me', getCurrentUser);
-router.get('/:users/id', validateObjectId, getUser);
+router.get('/:id', validateObjectId, getUser);
 // router.post('/users', createUser);
 router.patch('/me', validateProfile, updateProfile);
 router.patch('/me/avatar', validateProfilePic, updateProfilePicture);
