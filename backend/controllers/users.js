@@ -48,7 +48,7 @@ const getAllUsers = (req, res, next) => {
 
 const createUser = (req, res, next) => {
   const {
-    name, avatar, about, email, password,
+    email, password,
   } = req.body;
   User.findOne({ email })
     .then((user) => {

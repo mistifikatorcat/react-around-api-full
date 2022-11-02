@@ -5,12 +5,11 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const router = require('./routes');
-const auth = require('./middleware/auth');
 const handleCentralError = require('./middleware/handleCentralError');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { limiter } = require('./middleware/limiter');
 
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 
 const { PORT = 3001 } = process.env;
 const { MONGODB_URI = 'mongodb://localhost:27017/aroundb' } = process.env;
@@ -28,10 +27,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
+app.use(errorLogger);
 // router.use(auth);
 app.use(handleCentralError);
 app.use(errors());
-app.use(errorLogger);
+
 app.use(limiter);
 
 /* app.use((req, res, next) => {
@@ -53,5 +53,5 @@ app.get('/crash-test', () => {
 }); */
 
 app.listen(PORT, () => {
-  console.log(`Server started at port ${PORT}`);
+  // console.log(`Server started at port ${PORT}`);
 });
