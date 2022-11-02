@@ -7,7 +7,7 @@ const Unauthorized = require('../errors/Unauthorized');
 const BadReq = require('../errors/BadReq');
 const NotFound = require('../errors/NotFound');
 
-const { JWT_SECRET = '...' } = process.env;
+const { JWT_SECRET = 'somecoolstring' } = process.env;
 
 const findUserWithId = (req, res, action, next) => {
   action.orFail(() => {
