@@ -107,7 +107,7 @@ const login = (req, res, next) => {
       console.log('logged in');
       console.log(token);
       res.send({
-        name: user.name, avatar: user.avatar, about: user.about, email: user.email, token,
+        /* name: user.name, avatar: user.avatar, about: user.about, */ email: user.email, token,
       });
     })
     .catch((err) => {
